@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Categories</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: ghostwhite;
+            color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: black;
+            font-size: 3rem;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .subject {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .subject:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .subject h2 {
+            color: #673ab7;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .fields {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .fields ul {
+            padding-left: 20px;
+            list-style-type: none;
+        }
+
+        .fields li {
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .fields li:hover {
+            color: #673ab7;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            font-size: 1.5rem;
+            color: #673ab7;
+        }
+
+        .modal-body {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 2rem;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #673ab7;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .modal-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 40%;
+            max-width: 500px;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .close-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .close-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Subject Categories</h1>
+
+    <div class="container">
+        <!-- Science (Maths) Section -->
+        <div class="subject" id="science-maths">
+            <h2>Science (Maths)</h2>
+            <div class="fields">
+                <ul>
+                    <li onclick="showModal('maths-engineering')">Engineering</li>
+                    <li onclick="showModal('maths-physics')">Physics</li>
+                    <li onclick="showModal('maths-astronomy')">Astronomy</li>
+                    <li onclick="showModal('maths-mathematics')">Mathematics</li>
+                    <li onclick="showModal('maths-computer-science')">Computer Science</li>
+                    <li onclick="showModal('maths-architecture')">Architecture</li>
+                    <li onclick="showModal('maths-statistics')">Statistics</li>
+                    <li onclick="showModal('maths-data-science')">Data Science</li>
+                    <li onclick="showModal('maths-actuarial-science')">Actuarial Science</li>
+                    <li onclick="showModal('maths-robotics')">Robotics</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Science (Bio) Section -->
+        <div class="subject" id="science-bio">
+            <h2>Science (Bio)</h2>
+            <div class="fields">
+                <ul>
+                    <li onclick="showModal('bio-medicine')">Medicine</li>
+                    <li onclick="showModal('bio-biotechnology')">Biotechnology</li>
+                    <li onclick="showModal('bio-pharmacy')">Pharmacy</li>
+                    <li onclick="showModal('bio-microbiology')">Microbiology</li>
+                    <li onclick="showModal('bio-environmental-science')">Environmental Science</li>
+                    <li onclick="showModal('bio-genetics')">Genetics</li>
+                    <li onclick="showModal('bio-botany')">Botany</li>
+                    <li onclick="showModal('bio-zoology')">Zoology</li>
+                    <li onclick="showModal('bio-agriculture')">Agriculture</li>
+                    <li onclick="showModal('bio-veterinary-science')">Veterinary Science</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Commerce Section -->
+        <div class="subject" id="commerce">
+            <h2>Commerce</h2>
+            <div class="fields">
+                <ul>
+                    <li onclick="showModal('commerce-business-administration')">Business Administration</li>
+                    <li onclick="showModal('commerce-accounting')">Accounting</li>
+                    <li onclick="showModal('commerce-economics')">Economics</li>
+                    <li onclick="showModal('commerce-banking')">Banking</li>
+                    <li onclick="showModal('commerce-finance')">Finance</li>
+                    <li onclick="showModal('commerce-marketing')">Marketing</li>
+                    <li onclick="showModal('commerce-human-resource-management')">Human Resource Management</li>
+                    <li onclick="showModal('commerce-taxation')">Taxation</li>
+                    <li onclick="showModal('commerce-international-business')">International Business</li>
+                    <li onclick="showModal('commerce-auditing')">Auditing</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Arts Section -->
+        <div class="subject" id="arts">
+            <h2>Arts</h2>
+            <div class="fields">
+                <ul>
+                    <li onclick="showModal('arts-fine-arts')">Fine Arts</li>
+                    <li onclick="showModal('arts-performing-arts')">Performing Arts</li>
+                    <li onclick="showModal('arts-psychology')">Psychology</li>
+                    <li onclick="showModal('arts-history')">History</li>
+                    <li onclick="showModal('arts-political-science')">Political Science</li>
+                    <li onclick="showModal('arts-literature')">Literature</li>
+                    <li onclick="showModal('arts-sociology')">Sociology</li>
+                    <li onclick="showModal('arts-philosophy')">Philosophy</li>
+                    <li onclick="showModal('arts-anthropology')">Anthropology</li>
+                    <li onclick="showModal('arts-archaeology')">Archaeology</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- The Modal -->
+    <div id="descriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalHeader" class="modal-header"></div>
+            <div id="modalBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+    function showModal(subject) {
+        var modal = document.getElementById("descriptionModal");
+        var modalHeader = document.getElementById("modalHeader");
+        var modalBody = document.getElementById("modalBody");
+
+        if (subject === 'maths-engineering') {
+            modalHeader.innerHTML = 'Engineering';
+            modalBody.innerHTML = 'An Engineering degree is an academic program that provides students with the knowledge and skills needed to design, build, test, and maintain various systems, structures, machines, and technologies. It combines principles from mathematics, science, and technology to solve practical problems in a wide range of industries, including construction, manufacturing, energy, healthcare, and more.';
+        }
+        if (subject === 'maths-physics') {
+            modalHeader.innerHTML = 'Physics';
+            modalBody.innerHTML = 'The study of matter, energy, and the fundamental forces of nature, including concepts like motion, energy, and force. It involves understanding the laws that govern the universe and applying those laws to various real-world applications, from mechanics to quantum theory.';
+        }
+        if (subject === 'maths-astronomy') {
+            modalHeader.innerHTML = 'Astronomy';
+            modalBody.innerHTML = 'Astronomy is the study of celestial objects, space, and the universe as a whole. It involves the observation and interpretation of phenomena like stars, planets, galaxies, and cosmic events using both theoretical and experimental methods.';
+        }
+        if (subject === 'maths-mathematics') {
+            modalHeader.innerHTML = 'Mathematics';
+            modalBody.innerHTML = 'A Mathematics degree focuses on the theoretical and applied aspects of mathematics, including areas such as calculus, algebra, geometry, and statistics. It provides students with critical problem-solving and analytical skills, useful in a variety of fields, including engineering, economics, and computer science.';
+        }
+        if (subject === 'maths-computer-science') {
+            modalHeader.innerHTML = 'Computer Science';
+            modalBody.innerHTML = 'Computer Science is the study of computational systems, algorithms, and programming languages. It covers a wide range of topics, from software development to artificial intelligence, and equips students with the skills to solve complex technical problems and develop innovative technologies.';
+        }
+        if (subject === 'maths-architecture') {
+            modalHeader.innerHTML = 'Architecture';
+            modalBody.innerHTML = 'An Architecture degree focuses on the design and planning of buildings and structures, combining creativity with technical knowledge. It prepares students to address challenges in the built environment, including sustainability, urban planning, and structural integrity.';
+        }
+        if (subject === 'maths-statistics') {
+            modalHeader.innerHTML = 'Statistics';
+            modalBody.innerHTML = 'Statistics is the study of data collection, analysis, interpretation, and presentation. It focuses on using mathematical methods to make sense of large data sets, enabling decisions in fields like business, healthcare, economics, and social sciences.';
+        }
+        if (subject === 'maths-data-science') {
+            modalHeader.innerHTML = 'Data Science';
+            modalBody.innerHTML = 'Data Science is an interdisciplinary field that uses statistical, mathematical, and computational techniques to extract meaningful insights from large data sets. It combines elements of computer science, machine learning, and data analysis to make informed decisions in various industries.';
+        }
+        if (subject === 'maths-actuarial-science') {
+            modalHeader.innerHTML = 'Actuarial Science';
+            modalBody.innerHTML = 'Actuarial Science uses mathematics, statistics, and financial theory to study uncertain future events, particularly in insurance and finance industries. It helps in risk assessment, financial planning, and decision-making based on predictive models.';
+        }
+        if (subject === 'maths-robotics') {
+            modalHeader.innerHTML = 'Robotics';
+            modalBody.innerHTML = 'Robotics is the design, construction, and operation of robots. It combines mechanical engineering, computer science, and electronics to create machines capable of performing tasks autonomously or semi-autonomously, often used in manufacturing, healthcare, and space exploration.';
+        }
+        
+        if (subject === 'bio-medicine') {
+            modalHeader.innerHTML = 'Medicine';
+            modalBody.innerHTML = 'A Medicine degree provides students with the knowledge and skills to diagnose, treat, and prevent various diseases and conditions. It covers topics like anatomy, pharmacology, surgery, and ethics, preparing students for careers as doctors, nurses, and healthcare practitioners.';
+        }
+        if (subject === 'bio-biotechnology') {
+            modalHeader.innerHTML = 'Biotechnology';
+            modalBody.innerHTML = 'Biotechnology combines biology and technology to develop products and solutions for industries like healthcare, agriculture, and environmental protection. It involves the manipulation of living organisms or their components to develop new processes and products.';
+        }
+        if (subject === 'bio-pharmacy') {
+            modalHeader.innerHTML = 'Pharmacy';
+            modalBody.innerHTML = 'A Pharmacy degree prepares students to become pharmacists, focusing on the preparation, dispensation, and proper use of medicines. Students study pharmacology, medicinal chemistry, and patient care, ensuring safe medication practices in clinical and retail settings.';
+        }
+        if (subject === 'bio-microbiology') {
+            modalHeader.innerHTML = 'Microbiology';
+            modalBody.innerHTML = 'Microbiology is the study of microorganisms, including bacteria, viruses, fungi, and parasites. It examines their roles in health, disease, and the environment, and is fundamental for developing antibiotics, vaccines, and other medical treatments.';
+        }
+        if (subject === 'bio-environmental-science') {
+            modalHeader.innerHTML = 'Environmental Science';
+            modalBody.innerHTML = 'Environmental Science explores the relationship between humans and the environment. It involves the study of ecosystems, pollution, and natural resources, with the goal of addressing environmental challenges through sustainable practices and policies.';
+        }
+        if (subject === 'bio-genetics') {
+            modalHeader.innerHTML = 'Genetics';
+            modalBody.innerHTML = 'Genetics is the study of genes, heredity, and genetic variation. It focuses on understanding how traits are inherited and how genetic information influences the development of organisms, with applications in medicine, agriculture, and biotechnology.';
+        }
+        if (subject === 'bio-botany') {
+            modalHeader.innerHTML = 'Botany';
+            modalBody.innerHTML = 'Botany is the scientific study of plants, including their structure, growth, reproduction, and evolution. It examines plant biology and ecology, helping to improve agricultural practices and understand plant-based ecosystems.';
+        }
+        if (subject === 'bio-zoology') {
+            modalHeader.innerHTML = 'Zoology';
+            modalBody.innerHTML = 'Zoology is the study of animals, including their physiology, behavior, and ecology. It covers a wide range of topics, from animal classification to conservation efforts, and is critical for understanding biodiversity and managing wildlife.';
+        }
+        if (subject === 'bio-agriculture') {
+            modalHeader.innerHTML = 'Agriculture';
+            modalBody.innerHTML = 'Agriculture is the study of farming, including the cultivation of crops and the breeding of animals. It focuses on improving food production, sustainability, and food security, through techniques in soil science, plant biology, and agricultural engineering.';
+        }
+        if (subject === 'bio-veterinary-science') {
+            modalHeader.innerHTML = 'Veterinary Science';
+            modalBody.innerHTML = 'Veterinary Science is the branch of medicine that focuses on the prevention, diagnosis, and treatment of diseases and injuries in animals. It includes studies in animal anatomy, surgery, and pharmacology, training professionals to care for a variety of species.';
+        }
+
+        if (subject === 'commerce-business-administration') {
+            modalHeader.innerHTML = 'Business Administration';
+            modalBody.innerHTML = 'Business Administration is the management and organization of business operations. It includes topics like management principles, leadership, marketing, human resources, and strategic planning to prepare students for leadership roles in businesses and organizations.';
+        }
+        if (subject === 'commerce-accounting') {
+            modalHeader.innerHTML = 'Accounting';
+            modalBody.innerHTML = 'Accounting involves recording, classifying, and analyzing financial transactions. It provides the foundation for business decision-making and covers topics like financial reporting, auditing, and taxation, preparing students for careers in financial management and consultancy.';
+        }
+        if (subject === 'commerce-economics') {
+            modalHeader.innerHTML = 'Economics';
+            modalBody.innerHTML = 'Economics is the study of how resources are produced, distributed, and consumed. It focuses on understanding economic systems, market behavior, and policy, helping businesses and governments make informed decisions regarding resource allocation and economic growth.';
+        }
+        if (subject === 'commerce-banking') {
+            modalHeader.innerHTML = 'Banking';
+            modalBody.innerHTML = 'Banking involves the study of financial systems, including the management of money, loans, investments, and financial services. It covers principles of financial management, risk assessment, and investment analysis, preparing students for careers in financial institutions and services.';
+        }
+        if (subject === 'commerce-finance') {
+            modalHeader.innerHTML = 'Finance';
+            modalBody.innerHTML = 'Finance is the study of managing money, including investment, budgeting, forecasting, and financial planning. It focuses on financial markets, instruments, and strategies to optimize financial decision-making for businesses and individuals.';
+        }
+        if (subject === 'commerce-marketing') {
+            modalHeader.innerHTML = 'Marketing';
+            modalBody.innerHTML = 'Marketing focuses on promoting and selling products or services. It covers market research, advertising strategies, consumer behavior, and digital marketing, preparing students for careers in brand management, market analysis, and advertising.';
+        }
+        if (subject === 'commerce-human-resource-management') {
+            modalHeader.innerHTML = 'Human Resource Management';
+            modalBody.innerHTML = 'Human Resource Management involves managing the workforce of an organization. It includes recruitment, employee training, performance management, and labor relations, ensuring that businesses have effective teams and a positive work environment.';
+        }
+        if (subject === 'commerce-taxation') {
+            modalHeader.innerHTML = 'Taxation';
+            modalBody.innerHTML = 'Taxation focuses on the laws and principles surrounding taxes. It involves understanding tax regulations, preparing tax returns, and advising businesses and individuals on tax strategies to comply with the law while minimizing tax liabilities.';
+        }
+        if (subject === 'commerce-international-business') {
+            modalHeader.innerHTML = 'International Business';
+            modalBody.innerHTML = 'International Business examines the operations and management of businesses in the global marketplace. It covers global trade, cross-cultural communication, international marketing, and finance, preparing students to manage multinational organizations and cross-border transactions.';
+        }
+        if (subject === 'commerce-auditing') {
+            modalHeader.innerHTML = 'Auditing';
+            modalBody.innerHTML = 'Auditing involves the examination and verification of financial statements and records. It ensures accuracy and compliance with regulations, preparing students to pursue careers in auditing firms, financial institutions, and regulatory bodies.';
+        }
+
+        if (subject === 'arts-fine-arts') {
+            modalHeader.innerHTML = 'Fine Arts';
+            modalBody.innerHTML = 'Fine Arts focuses on creative disciplines such as painting, sculpture, music, theater, and dance. It encourages artistic expression while developing skills in visual and performing arts, preparing students for careers as artists, curators, or art educators.';
+        }
+        if (subject === 'arts-performing-arts') {
+            modalHeader.innerHTML = 'Performing Arts';
+            modalBody.innerHTML = 'Performing Arts covers the study of dramatic, musical, and dance performances. Students explore theatrical productions, choreography, and music composition, preparing them for careers in entertainment, performance, and arts management.';
+        }
+        if (subject === 'arts-psychology') {
+            modalHeader.innerHTML = 'Psychology';
+            modalBody.innerHTML = 'Psychology is the scientific study of the mind and behavior. It includes topics such as cognitive processes, mental health, human development, and social psychology, with applications in therapy, counseling, and research.';
+        }
+        if (subject === 'arts-history') {
+            modalHeader.innerHTML = 'History';
+            modalBody.innerHTML = 'History is the study of past events, individuals, and societies. It involves analyzing historical records, events, and patterns to understand how past developments have shaped the present and can influence the future.';
+        }
+        if (subject === 'arts-political-science') {
+            modalHeader.innerHTML = 'Political Science';
+            modalBody.innerHTML = 'Political Science is the study of government, politics, and political behavior. It focuses on the analysis of political systems, institutions, and policies, preparing students for careers in law, government, or international relations.';
+        }
+        if (subject === 'arts-literature') {
+            modalHeader.innerHTML = 'Literature';
+            modalBody.innerHTML = 'Literature is the study of written works, including novels, poetry, plays, and essays. Students explore the cultural, historical, and social contexts of literary works, and develop critical thinking and writing skills.';
+        }
+        if (subject === 'arts-sociology') {
+            modalHeader.innerHTML = 'Sociology';
+            modalBody.innerHTML = 'Sociology is the study of society, social institutions, and relationships. It covers topics such as culture, inequality, and social change, providing insights into how societies function and evolve.';
+        }
+        if (subject === 'arts-philosophy') {
+            modalHeader.innerHTML = 'Philosophy';
+            modalBody.innerHTML = 'Philosophy explores fundamental questions about existence, knowledge, ethics, and logic. Students engage with various philosophical theories and apply them to modern-day issues in ethics, politics, and human behavior.';
+        }
+        if (subject === 'arts-anthropology') {
+            modalHeader.innerHTML = 'Anthropology';
+            modalBody.innerHTML = 'Anthropology is the study of humans, their societies, cultures, and biological aspects. It examines human behavior from both a historical and contemporary perspective, helping to understand diverse cultural practices and human evolution.';
+        }
+        if (subject === 'arts-archaeology') {
+            modalHeader.innerHTML = 'Archaeology';
+            modalBody.innerHTML = 'Archaeology focuses on the study of human history and prehistory through the excavation and analysis of artifacts, structures, and other material remains. It helps reconstruct ancient societies and understand cultural development.';
+        }
+
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("descriptionModal");
+        modal.style.display = "none";
+    }
+
+    // Close the modal if the user clicks outside of it
+    window.onclick = function(event) {
+        var modal = document.getElementById("descriptionModal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
