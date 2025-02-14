@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Color Palette */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #34495e;
+            --white: #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #2c3e50;
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar .logo-name {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar .nav-links li {
+            position: relative;
+        }
+
+        .navbar .nav-links li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 300;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            padding-bottom: 5px;
+        }
+
+        .navbar .nav-links li a::after {
+            content: '';
+            width: 0;
+            height: 2px;
+            background: #e74c3c;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .navbar .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .navbar .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #fff;
+            background-image: url('https://via.placeholder.com/40');
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            border: 2px solid #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar .profile-icon:hover {
+            transform: rotate(15deg);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background: #2c3e50;
+            padding-top: 60px;
+            transition: left 0.3s ease-in-out;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.show {
+            left: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background: #e74c3c
+        }
+
+        /* Sidebar Toggle Button */
+        .sidebar-toggle {
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            z-index: 1100;
+        }
+
+        /* Footer Section */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: #fff;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            font-size: 24px;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            transform: scale(1.2);
+            color: #e74c3c;
+        }
+
+        /* Contact Us Section */
+        .contact-us {
+            text-align: center;
+            padding: 50px 20px;
+            background: white;
+            max-width: 900px;
+            margin: 50px auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-us h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .contact-us p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            background: #f9f9f9;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-item i {
+            font-size: 30px;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .contact-item h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .contact-item p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        @media (min-width: 769px) {
+            .sidebar-toggle {
+                display: none;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .navbar .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                display: none;
+            }
+
+            .navbar .nav-links.show {
+                display: flex;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .contact-details {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-item {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px;
+            }
+
+            .footer-links a {
+                font-size: 20px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <i class="fas fa-bars sidebar-toggle" onclick="toggleSidebar()"></i>
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="/homepg.html">Home</a></li>
+                <li><a href="/Aboutus.html">About Us</a></li>
+                <li><a href="/contact us.html">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="logo">
+            <img src="/logo(1).jpg" alt="Logo" height="50" width="50">
+            <span class="logo-name">CareerGuru</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/homepg.html">Home</a></li>
+            <li><a href="/Aboutus.html">About Us</a></li>
+            <li><a href="D:\xampp\htdocs\AARCHI\career\contact us.html">Contact Us</a></li>
+        </ul>
+        <div class="profile-icon" id="profile-icon" onclick="toggleProfileSlider()"></div>
+    </nav>
+
+    <!-- Contact Us Section -->
+    <section class="contact-us">
+        <h1>Contact Us</h1>
+        <p>If you have any questions or need assistance, feel free to reach out to us.</p>
+
+        <div class="contact-details">
+            <div class="contact-item">
+                <img src="email.png" alt="email" height="50" width="50"></a>
+                <h3>Email</h3>
+                <p>support@careerguru.com</p>
+            </div>
+
+            <div class="contact-item">
+                <img src="telephone-call.png" alt="call" height="50" width="50"></a>
+                <h3>Phone</h3>
+                <p>+91 00000 00000</p>
+            </div>
+
+            <div class="contact-item">
+                <img src="placeholder.png" alt="map" height="50" width="50"></a>
+                <h3>Office Address</h3>
+                <p>123, Tech Park, Gurugram, India</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; 2025 CareerGuru. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("show");
+        }
+    </script>
+
+</body>
+
+</html>
