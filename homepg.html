@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f9fc;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Color Palette */
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #e74c3c;
+      --accent-color: #34495e;
+      --white: #fff;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: var(--primary-color);
+      color: var(--white);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar .logo-name {
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .navbar .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar .nav-links li a {
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 300;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .nav-links li a:hover {
+      color: var(--secondary-color);
+    }
+
+    .navbar .btn {
+      background: var(--secondary-color);
+      color: var(--white);
+      padding: 12px 30px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+
+    .navbar .btn:hover {
+      background: #c0392b;
+    }
+
+    .navbar .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #fff;
+      background-image: url('https://via.placeholder.com/40');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      border: 2px solid var(--white);
+      transition: transform 0.3s ease;
+    }
+
+    .navbar .profile-icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .hero .hero-btn {
+      background: var(--secondary-color);
+      color: var(--white);
+      padding: 15px 30px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      transition: background 0.3s ease;
+    }
+
+    .hero .hero-btn:hover {
+      background: #c0392b;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 60px 20px;
+      background: #ecf0f1;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .services h2 {
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    .service-list {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .service {
+      width: 22%;
+      background: var(--white);
+      padding: 25px;
+      margin: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+
+    .service:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .service i {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: var(--secondary-color);
+    }
+
+    .service h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .service p {
+      font-size: 16px;
+    }
+
+    /* Footer Section */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      color: var(--white);
+      font-size: 24px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary-color);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="/logo(1).jpg" alt="Logo" height="50" width="50">
+      <span class="logo-name">CareerGuru</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+    <a href="#" class="btn" id="login-btn" onclick="toggleLoginStatus()">Log In</a>
+    <div class="profile-icon" id="profile-icon" onclick="toggleProfileSlider()"></div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome, Name</h1>
+    <p>Personalized mentorship to help you navigate your career journey.</p>
+    <a href="#" class="hero-btn">Take a Survey</a>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services">
+    <h2>Our Services</h2>
+    <div class="service-list">
+      <div class="service">
+        <i class="fas fa-user-graduate"></i>
+        <h3>Mentorship</h3>
+        <p>Get expert guidance from experienced mentors.</p>
+      </div>
+      <div class="service">
+        <i class="fas fa-briefcase"></i>
+        <h3>Career Guidance</h3>
+        <p>Personalized career advice to help you find your path.</p>
+      </div>
+      <div class="service">
+        <i class="fa-solid fa-pen-ruler"></i>
+        <h3>Additional Skills</h3>
+        <p>Enhance your skills and career with unprofessional growth programs.</p>
+      </div>
+      <div class="service">
+        <i class="fas fa-comments"></i>
+        <h3>Feedback</h3>
+        <p>Don't be afraid to give your feedback.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-links">
+      <a href="#" target="_blank" class="fab fa-linkedin"></a>
+      <a href="#" target="_blank" class="fab fa-github"></a>
+      <a href="#" target="_blank" class="fab fa-instagram"></a>
+    </div>
+    <p>&copy; 2025 CareerGuru. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let isLoggedIn = false;
+
+    function toggleLoginStatus() {
+      const loginBtn = document.getElementById('login-btn');
+      isLoggedIn = !isLoggedIn;
+
+      if (isLoggedIn) {
+        loginBtn.textContent = "Log Out";
+      } else {
+        loginBtn.textContent = "Log In";
+      }
+    }
+
+    function toggleProfileSlider() {
+      const profileSlider = document.getElementById('profile-slider');
+      profileSlider.classList.toggle('open');
+    }
+  </script>
+
+</body>
+
+</html>
