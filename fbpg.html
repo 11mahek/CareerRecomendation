@@ -1,0 +1,259 @@
+<!--?php
+include('connect.php');
+?-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            background: linear-gradient(135deg, #81d4fa, #b3e5fc);
+            /* Light blue gradient */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Feedback Form */
+        .feedback-form {
+            background: rgba(255, 255, 255, 0.85);
+            /* Light white background with slight transparency */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        /* Form Hover Effect */
+        .feedback-form:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Form Title */
+        h1 {
+            text-align: center;
+            color: #0288d1;
+            /* Light blue color for the title */
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Label */
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0288d1;
+            /* Light blue for labels */
+            font-size: 16px;
+        }
+
+        /* Input & Textarea Fields */
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #0288d1;
+            /* Light blue border */
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            /* Dark text for readability */
+            background: #e3f2fd;
+            /* Light blue background */
+            outline: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            background-color: #bbdefb;
+            /* Slightly darker light blue on focus */
+            border-color: #0288d1;
+            /* Deep blue on focus */
+        }
+
+        /* Rating Stars */
+        .rating {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .rating span {
+            cursor: pointer;
+            font-size: 30px;
+            color: #0288d1;
+            /* Light blue color for stars */
+            transition: color 0.3s ease;
+        }
+
+        .rating span:hover,
+        .rating span.selected {
+            color: #ffeb3b;
+            /* Golden yellow for selected stars */
+        }
+
+        /* Submit Button */
+        .form-group button {
+            background-color: #0288d1;
+            /* Light blue button */
+            color: white;
+            font-size: 16px;
+            padding: 14px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #0277bd;
+            /* Darker blue on hover */
+        }
+
+        /* Rating Display */
+        #ratingDisplay {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #b3e5fc;
+            /* Light blue background for rating display */
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        #ratingDisplay h3 {
+            color: #0288d1;
+            /* Light blue for the heading */
+            font-size: 20px;
+            margin: 0;
+        }
+
+        #ratingDisplay p {
+            font-size: 18px;
+            color: #ffeb3b;
+            /* Golden yellow */
+        }
+    </style>
+</head>
+
+<body>
+
+    <form class="feedback-form" id="feedbackForm" method="POST" action="submit_feedback.php">
+        <h1>Feedback Form</h1>
+
+        <!-- Name Field -->
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <!-- Contact Field -->
+        <div class="form-group">
+            <label for="contact">Contact Number:</label>
+            <input type="text" id="contact" name="contact" required>
+        </div>
+
+        <!-- Rating Section -->
+        <div class="form-group">
+            <label for="rating">Rating (1-5):</label>
+            <div class="rating" id="rating">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <input type="hidden" id="ratingInput" name="rating" required>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="form-group">
+            <label for="comments">Additional Comments:</label>
+            <textarea id="comments" name="comments" rows="4"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit">Submit Feedback</button>
+        </div>
+    </form>
+
+    <!-- Rating Display -->
+    <div id="ratingDisplay">
+        <h3>Thank you for your feedback!</h3>
+        <p>Your rating: <span id="userRating"></span> out of 5</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let selectedRating = 0;
+
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('click', function () {
+                    selectedRating = parseInt(star.getAttribute('data-value'));
+                    document.getElementById('ratingInput').value = selectedRating;
+                    updateRatingDisplay();
+                });
+            });
+
+            function updateRatingDisplay() {
+                stars.forEach(star => {
+                    star.classList.remove('selected');
+                    if (parseInt(star.getAttribute('data-value')) <= selectedRating) {
+                        star.classList.add('selected');
+                    }
+                });
+            }
+
+            const form = document.getElementById('feedbackForm');
+            form.addEventListener('submit', function (event) {
+                if (selectedRating === 0) {
+                    alert('Please select a rating before submitting.');
+                    event.preventDefault();
+                    return;
+                }
+                document.getElementById('userRating').innerText = selectedRating;
+                document.getElementById('ratingDisplay').style.display = 'block';
+                form.reset();
+                selectedRating = 0;
+                updateRatingDisplay();
+            });
+        });
+    </script>
+
+</body>
+
+</html>
